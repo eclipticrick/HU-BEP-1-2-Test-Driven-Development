@@ -23,7 +23,7 @@ class IncomeTaxCalculator {
             tax = taxableIncome * 0.4085;
         else if(slice == 4)
             tax = taxableIncome * 0.5195;
-        return round(tax, 2);
+        return round(tax);
     }
     Integer getSlice(double taxableIncome) {
         if(taxableIncome > -1 && taxableIncome <= 20142)
@@ -37,7 +37,7 @@ class IncomeTaxCalculator {
         else return 0;
     }
 
-    Boolean aowLeeftijd(Date dateOfBirth, Date now) {
+    boolean aowLeeftijd(Date dateOfBirth, Date now) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateOfBirth);
 
@@ -48,7 +48,6 @@ class IncomeTaxCalculator {
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.set(Calendar.MONTH, 0);
 
-        // compare
         Date dateWhenAowStarts = cal.getTime();
         return now.compareTo(dateWhenAowStarts) >= 0;
     }
@@ -73,19 +72,19 @@ class IncomeTaxCalculator {
             return (66 * 12) + 8;
         else if(dateOfBirth.compareTo(date(1955, Calendar.JANUARY, 1)) < 0)
             return (67 * 12);
-        else if(dateOfBirth.compareTo(date(1955, Calendar.OCTOBER, 1)) < 0)
+        else if(dateOfBirth.compareTo(date(1955, Calendar.OCTOBER, 1)) < 0 ||
+                dateOfBirth.compareTo(date(1955, Calendar.OCTOBER, 1)) >= 0)
             return (67 * 12) + 3;
         else
             return 0;
     }
 
     /* helper functions */
-    private Date date(int year, int month, int day) {
+    Date date(int year, int month, int day) {
         return new GregorianCalendar(year, month, day).getTime();
     }
-    private static double round(double value, int decimals) {
-        if (decimals < 0) throw new IllegalArgumentException();
-        long factor = (long) Math.pow(10, decimals);
+    double round(double value) {
+        long factor = (long) Math.pow(10, 2);
         return (double) Math.round(value * factor) / factor;
     }
 }
