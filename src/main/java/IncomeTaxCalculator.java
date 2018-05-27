@@ -3,6 +3,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 class IncomeTaxCalculator {
+
     double calculateTax(double taxableIncome, Date dateOfBirth){
         int slice = getSlice(taxableIncome);
         double tax = 0;
@@ -25,6 +26,7 @@ class IncomeTaxCalculator {
             tax = taxableIncome * 0.5195;
         return round(tax);
     }
+
     Integer getSlice(double taxableIncome) {
         if(taxableIncome > -1 && taxableIncome <= 20142)
             return 1;
@@ -51,6 +53,7 @@ class IncomeTaxCalculator {
         Date dateWhenAowStarts = cal.getTime();
         return now.compareTo(dateWhenAowStarts) >= 0;
     }
+
     int getMontsUntillAow(Date dateOfBirth){
         if(dateOfBirth.compareTo(date(1948, Calendar.JANUARY, 1)) < 0)
             return (65 * 12);
